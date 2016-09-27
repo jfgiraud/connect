@@ -1,8 +1,9 @@
-# gorc
+# connect
 
-Ce programme est un utilitaire de connexion centralisé en ligne de commande (Bash).
+`connect` is a centralized connection tool written in bash.
 
-Il est configurable, extensible et met à disposition un mini-moteur de recherche.
+It is configurable, expandable and offers a search engine to the configurated connections.
+
 
 ### installation
 
@@ -14,19 +15,21 @@ Il est configurable, extensible et met à disposition un mini-moteur de recherch
 └── .connectrc
 ```
 
-Le script `connect` est à placer dans le PATH.
+The path to the `connect` script must be added to your `PATH` variable.
 
-Les fichiers `.connect` et `.connectrc` dans sa HOMEDIR.
+The files `.connect` and `.connectrc` must be copied to your `HOMEDIR`.
 
-### exemple de configuration 
+### examples of configuration
 
-Le script `.connect` définit les fonctions réutilisables (certaines fonctions sont déjà renseignées) et le fichier `.connectrc` les configurations (et surchages de fonctions).
+The script `.connect` defines reusable functions.
 
-Pour le moment, les fonctionnalités de base sont :
-- la connexion SSH
-- la connexion à une base de donnée MySQL (en passant par un tunnel SSH ou non)
+The script `.connectrc` defines connection configurations (and overrides some functions).
 
-Exemple de fichier `.connectrc` :
+For the moment, the offered functionalities are:
+- the ssh connections
+- the MySQL database connections (over ssh or not)
+
+Example of `.connectrc` file:
 
 ```
 function get_sql_version() {
@@ -46,20 +49,24 @@ function get_sql_version() {
   function connect_ssh_service_as_prod()                 { call_ssh '-X' 'prod_service_as.example.com' "$@"; }
 ```
 
-### exemple d'utilisation
+### example of use
 
-La connexion se fait en recherchant des mots clés dans le nom des fonctions. Si plusieurs items correspondent, un prompt demande de préciser.
+The connection is done by searching words in function names.
 
-Le séparateur des mots clés est le caractère `_`.
+If more than one item match, a prompt is displayed and ask precisions.
 
-Exemples :
+In the other case, the connection is directly done.
+
+The defined function names (in file `.connectrc`) must start with `connect_` and the words separator is `_`.
+
+Examples:
 
 ```
-$ go sql prp
-$ go localhost -test
-$ go ssh as
+$ connect sql prp
+$ connect localhost -test
+$ connect ssh as
 1) ssh service as prp
 2) ssh service as prod
 #? 2
-$ go localhost +test
+$ connect localhost +test
 ```
