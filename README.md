@@ -51,7 +51,7 @@ function get_sql_version() {
 
 ### example of use
 
-The connection is done by searching words in function names.
+The connection is done by searching for words in function names.
 
 If more than one item match, a prompt is displayed and ask precisions.
 
